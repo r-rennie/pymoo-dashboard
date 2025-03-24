@@ -1,9 +1,10 @@
 <template>
+	<div v-html="tempVar"></div>
 	<img
 		v-if="imageData && imageData.length > 0"
 		:id="'graph-image-' + slugify(title)"
 		class="image-content"
-		:src="'data:image/gif; base64,' + imageData[currentIndex]"
+		:src="'data:image/svg;' + imageData[currentIndex]"
 		:alt="title"
 	>
 	<button
@@ -31,7 +32,7 @@
 		>>
 	</button>
 	<a
-		:href="'data:image/gif; base64,' + imageData[currentIndex]"
+		:href="'data:image/svg; base64,' + imageData[currentIndex]"
 		:download="'graph-image-' + slugify(title) + currentIndex + 1 + '.gif'"
 	>
 		<span class="sr-only">Download image</span>
@@ -67,7 +68,9 @@ export default {
 	},
 	data() {
 		return {
-			index: null
+			index: null,
+			tempVar: '<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="red"/></svg>'
+
 		}
 	},
 	computed: {

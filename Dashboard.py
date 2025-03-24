@@ -106,16 +106,21 @@ class Dashboard(Callback):
             # Set up I/O buffer to save the image 
             buffer = io.BytesIO()
 
-            fig.savefig(buffer, format='png', dpi=100)
+            fig.savefig(buffer, format='svg')
+            fig.savefig("test_output.svg", format='svg')
 
             plt.close(fig)
 
             buffer.seek(0)
 
             # Encode bytes
-            plot_base64 = base64.b64encode(buffer.read()).decode('utf-8')
+            # Get rid of these potentially? But when I deleted it before it got rid of all of the tables entirely
+            # plot_base64 = base64.b64encode(buffer.read()).decode('utf-8')
+            svg_src = buffer.read()
+            # plot_data_uri = f"data:image/svg+xml;base64,{plot_base64}"
+            plot_data_uri = f"data:image/svg+xml,{svg_src}"
 
-            self.announcer.announce(plot_title=v, content=plot_base64)
+            self.announcer.announce(plot_title=v, content=plot_data_uri)
 
 
     def start_server(self):
