@@ -118,6 +118,8 @@ class Dashboard(Callback):
             # plot_base64 = base64.b64encode(buffer.read()).decode('utf-8')
             svg_src = buffer.read()
             # plot_data_uri = f"data:image/svg+xml;base64,{plot_base64}"
+            # svg_src = svg_src.decode('utf-8')
+            # svg_src = svg_src.replace("\\n ", "", "\n ","")
             plot_data_uri = f"data:image/svg+xml,{svg_src}"
 
             self.announcer.announce(plot_title=v, content=plot_data_uri)
